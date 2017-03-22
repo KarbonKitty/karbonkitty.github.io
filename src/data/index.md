@@ -1,3 +1,5 @@
-# Test
+layout: layout
+---
+### Mini test
 
-testtest
+testing
