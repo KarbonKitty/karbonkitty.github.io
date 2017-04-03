@@ -1,7 +1,6 @@
 var Metalsmith = require('metalsmith');
 var layouts = require('metalsmith-layouts');
 var markdown = require('metalsmith-markdownit');
-var permalinks = require('metalsmith-permalinks');
 
 Metalsmith(__dirname)
   .metadata({
@@ -15,10 +14,7 @@ Metalsmith(__dirname)
   .destination('..')
   .clean(false)
   .use(markdown())
-  .use(layouts({ engine: 'slm', default: 'layout.slm' }))
-  .use(permalinks({
-    relative: false
-  }))
+  .use(layouts({ engine: 'pug', default: 'layout.pug', options: { pretty: true } }))
   .build(function(err){
     if (err) throw err;
   });
