@@ -1,5 +1,5 @@
 var Metalsmith = require('metalsmith');
-var pug = require('metalsmith-pug/lib/node6');
+var layouts = require('metalsmith-layouts');
 var markdown = require('metalsmith-markdownit');
 var permalinks = require('metalsmith-permalinks');
 
@@ -15,7 +15,7 @@ Metalsmith(__dirname)
   .destination('..')
   .clean(false)
   .use(markdown())
-  .use(pug({}))
+  .use(layouts({ engine: 'slm', default: 'layout.slm' }))
   .use(permalinks({
     relative: false
   }))

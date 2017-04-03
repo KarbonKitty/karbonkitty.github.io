@@ -1,0 +1,5 @@
+html
+  head
+    title Deck of many things
+  body
+    == this.contents
