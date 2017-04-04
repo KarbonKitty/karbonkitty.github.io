@@ -14,7 +14,7 @@ Metalsmith(__dirname)
   .destination('..')
   .clean(false)
   .use(markdown())
-  .use(layouts({ engine: 'pug', default: 'layout.pug', options: { pretty: true } }))
+  .use(layouts({ engine: 'pug', default: 'layout.pug' }))
   .build(function(err){
     if (err) throw err;
   });
