@@ -1,6 +1,21 @@
 doctype HTML
+
 html
   head
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1")
+    link(href="/css/full.css", rel="stylesheet", type="text/css")
+
     title Deck of many things
   body
-    .container !{contents}
+    div
+      h1 Deck of many things
+    .container
+
+      .article!= contents
+      .links
+        h3 Article list
+        ul
+          each article in articles
+            li
+              a(href=article.path)= article.title

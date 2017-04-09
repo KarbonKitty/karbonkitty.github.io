@@ -1,6 +1,7 @@
 var Metalsmith = require('metalsmith');
 var layouts = require('metalsmith-layouts');
 var markdown = require('metalsmith-markdownit');
+var collections = require('metalsmith-collections');
 
 Metalsmith(__dirname)
   .metadata({
@@ -14,7 +15,13 @@ Metalsmith(__dirname)
   .destination('..')
   .clean(false)
   .use(markdown())
+  .use(collections({
+    articles: {
+      sortBy: 'date',
+      reverse: true
+    }
+  }))
   .use(layouts({ engine: 'pug', default: 'layout.pug' }))
-  .build(function(err){
+  .build(function (err) {
     if (err) throw err;
   });
