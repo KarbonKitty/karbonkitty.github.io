@@ -12,16 +12,18 @@ body {
   height: 100%;
 }
 
-.article {
-  flex: 2 0;
+.article, .links {
   background-color: #002b36;
   height: 100%;
+  padding: 0 20px;
+}
+
+.article {
+  flex: 2 0;
 }
 
 .links {
   flex: 1 0;
-  background-color: #002b36;
-  height: 100%;
 }
 
 html {
