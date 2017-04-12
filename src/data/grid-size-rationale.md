@@ -5,4 +5,38 @@ collection: articles
 ---
 # Grid size rationale
 
-This is a quite long line of text, because we need to test how much it will wrap and where exactly.
+This is going to be the first article in the ongoing series about the design of the game I'm working on, the FCV-RL, or Free City Vratislavia - Roguelike. For those who aren't all that familiar with either term, the explanation of the roguelike is [here](https://en.wikipedia.org/wiki/Roguelike), and the info page for Free City Vratislavia is still in the works - but will surely appear on page!
+
+As the first well thought out design decision I've made was the size of the grid in the game world, this will be also the topic of the first article I'm writing.
+
+Most roguelikes are played on a grid. I've decided not to break out of this mold, for a couple of reasons. Most importantly, it's generally easier to write a game that takes place on a grid, as opposed to continuously scrolling one. This is even more true for a game using ASCII art, like FCV-RL does. Also, I'm using a preexisting library, rot.js, which is made with assumption that the game is played on a grid.
+
+Thus, the question was born: if the grid, then how large? With most roguelikes, the grid size is abstract, with every entity taking a single tile. This allows both easier programming and easier parsing of the information by the player, and works well in traditional fantasy setting.
+
+But I was going cyberpunk! I wanted tables to be table-sized, and chairs that are chair-sized, so I'd be able to place six chairs around a table and have it all reasonably-looking. Or in other words, I want tile that is representative of the real world measurements, in order to translate sizes and dimensions of real world objects back to the grid sizes. And so, the first goal of the grid was to be as fine as possible, to allow easier modeling of real world objects, that vary widely in their sizes.
+
+On the other hand, though, there was another goal. I wanted to have guns that have realistic ranges - so you can at least try and shoot somebody 30 meters away with a pistol, and can reasonably expect results when shooting an assault rifle as much as ten times as far. And at the same time, I decided that for most combats, all combatants should be able to fit on the same screen, without scrolling from the position of the shooter to the position of the target. And thus the second goal appeared, to get the grid as coarse as possible, to facilitate long-range combat and general spatial awareness.
+
+It's quite obvious that both goals are in direct opposition. But quite early on, the decision was made to diminish the role of gunplay in the game, and concentrate on dialogue, stealth and deception instead. That made me think - if that's the case, haw fine can I make the grid, and will it be at least tolerable as far as combat goes?
+
+In the game, there are going to be four kinds of tiles, at least the common ones: floor, walls, furniture, and people.
+
+With that in mind, it was time to start research: what is the minimum reasonable size for each category?
+
+* People: there is the reason why most roguelikes have abstract grid, and the difficulty with representing multi-tile creatures is probably that reason (well, tradition probably plays a role too). And thinking about making every person in the game a multi-tile entity makes me shudder. So a single person should take exactly one tile. People, luckily, don't vary in size all that much, when viewed directly from above, but what is reasonable standard for their size? When calculating length of a table, it's usually assumed that a person takes up about 0 centimeters of space, or about two feet. Since we want tiles to be square, we get a proposed tile size of 2' x 2'.
+
+* Walls: internal walls of apartments and houses are about 4 to 6 inches thick, depending on material and period when the building was created. External walls have much wider range, starting at mere 4 inches and going up to ten times that, again depending on material and period. Going with lower end, proposed tile size would be 4 or 6 inches - much, much lower than what people size would suggest.
+
+* Floors: in rooms, they are easy, and will work with pretty much any size you choose. But somewhat more interesting are the corridor sizes, which are dictated by the building law, at least for public buildings - but there are going to be plenty of them in the game, too. Quick research suggests that corridor size for the public building is usually mandated to be at least 44 inches. This is a corridor in which two people are easily able to pass by each other, so we want it to be two tiles wide. Result would be 22" wide tile, which works well with people size of two feet per tile.
+
+* Furniture: there is quite some variation here. Kitchen appliances are often 60, 80 or 90 centimeters wide, or from two to three feet. Chairs are usually a bit less than 60 centimeters wide. Narrowest showers and beds are usually 70 centimeters wide, while washing machines are usually sized like kitchen appliances. Such furniture as closets or tables comes in wide variety of sizes even within the same general class... There doesn't seem to be a clear winner here, other than the fact that wall-sized tiles would be quite small for furniture needs, too.
+
+With those four categories out of the way, the general conclusion is that good tile size seems to be 60 centimeters. With about 50 tiles wide viewport, up to 30 meters of space can be seen at once, which is good enough for most buildings - and for most short-range firefights, too. It fits an average human nicely; it works well with most furniture (even if it's more uniform than it would be in reality); and the only true problem seems to be the fact that most wall will be much thicker than in reality, cutting into living spaces, espacially in more cramped apartments. But since subdiving each 2' tile into 6" ones would give us 16 smaller tiles, it seems impractical to do so just to solve a single problem, especially as that would mean multi-tile humans.
+
+There are still several problems with multi-tile entities that appear with the chosen grid size. Two most important are larger furniture items, like beds and tables; and people that are prone, or lying down. Furniture, at least for now, is simply creating by repeating the same glyph in a few spaces (narrow beds in LiviCubes(r) are three bed tiles in a line, giving a 6' x 2' bed). The people are going to be more of a problem, but that's for another article - and another time, since I haven't given it much though yet!
+
+I hope that this analysis will be useful for people who try to figure out the right way to size their grid. I think it's an important factor to consider, especially when trying to improve immersion for the players. In a setting more divorced from reality that's hardly a problem, but in survival, post-apocalyptic, or cyberpunk genres creating a world that at least looks like our own is rather important.
+
+------
+
+If you are interested in following up on the development of my game, most up-to-date information can be found on [subreddit](reddit.com/r/roguelikedev), where I publish progress reports each Saturday, on Sharing Saturday. With time, I hope that some kind of webpage will take over the role, but for now, Reddit is your best bet.
