@@ -1,0 +1,12 @@
+table {
+  border-collapse: collapse;
+  margin-left: auto;
+  margin-right: auto;
+}
+table, th, td {
+  border: 1px solid #839496;
+  padding: .5em
+}
+table tbody > :nth-child(2n-1) {
+  background: #073642;
+}
